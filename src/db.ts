@@ -1,17 +1,18 @@
-import { Pool } from "pg";
+import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const db = new Pool({
-	host: process.env.PGHOST,
-	user: process.env.PGUSER,
-	password: process.env.PGPASSWORD,
-	database: process.env.PGDATABASE,
-	port: Number(process.env.PGPORT),
-	ssl: {
-		rejectUnauthorized: false, // SSL is required on Railway
-	},
-});
+const connectDB = async () => {
+	try {
+		const mongoURI =
+			process.env.DATABASE_URL || "mongodb://localhost:27017/adaka";
+		await mongoose.connect(mongoURI);
+		console.log("✅ MongoDB connected successfully");
+	} catch (error) {
+		console.error("❌ MongoDB connection error:", error);
+		process.exit(1);
+	}
+};
 
-export default db;
+export default connectDB;

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import newsRoute from "./routes/news";
+import connectDB from "./db";
 
 dotenv.config();
 
@@ -14,6 +15,14 @@ app.use(express.json());
 
 app.use("/api/news", newsRoute);
 
-app.listen(PORT, () => {
-	console.log(`🚀 Server running at http://localhost:${PORT}`);
-});
+// Connect to MongoDB before starting the server
+connectDB()
+	.then(() => {
+		app.listen(PORT, () => {
+			console.log(`🚀 Server running at http://localhost:${PORT}`);
+		});
+	})
+	.catch((error) => {
+		console.error("Failed to connect to MongoDB:", error);
+		process.exit(1);
+	});
