@@ -32,7 +32,4 @@ const NewsArticleSchema: Schema = new Schema(
 	}
 );
 
-// Create a compound index to ensure uniqueness based on source
-NewsArticleSchema.index({ source: 1 }, { unique: true });
-
 export default mongoose.model<INewsArticle>("NewsArticle", NewsArticleSchema);
