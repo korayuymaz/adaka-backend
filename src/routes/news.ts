@@ -52,4 +52,9 @@ router.post("/fetch-and-save", async (req: Request, res: Response) => {
 	}
 });
 
+router.get("/", async (req: Request, res: Response) => {
+	const news = await NewsArticle.find();
+	res.status(200).json(news);
+});
+
 export default router;
