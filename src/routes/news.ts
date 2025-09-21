@@ -60,4 +60,11 @@ router.get("/", async (req: Request, res: Response) => {
 	res.status(200).json(news);
 });
 
+router.put("/:id", async (req: Request, res: Response) => {
+	const { id } = req.params;
+	const { status } = req.body;
+	await NewsArticle.findByIdAndUpdate(id, { status });
+	res.status(200).json({ message: "News article updated" });
+});
+
 export default router;
