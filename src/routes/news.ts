@@ -54,6 +54,9 @@ router.post("/fetch-and-save", async (req: Request, res: Response) => {
 
 router.get("/", async (req: Request, res: Response) => {
 	const news = await NewsArticle.find();
+	news.forEach((article) => {
+		article.id = article.id.toString();
+	});
 	res.status(200).json(news);
 });
 

@@ -4,6 +4,7 @@ export interface INewsArticle extends Document {
 	title: string;
 	description: string;
 	source: string;
+	status: string;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -25,6 +26,12 @@ const NewsArticleSchema: Schema = new Schema(
 			required: true,
 			unique: true,
 			trim: true,
+		},
+		status: {
+			type: String,
+			required: true,
+			enum: ["active", "inactive", "pending"],
+			default: "pending",
 		},
 	},
 	{
